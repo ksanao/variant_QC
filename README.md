@@ -1,2 +1,2 @@
 # variant_QC
-A case study to evaluate the performance of two different sequencers on the same sample prepared with the same laboratory methods.
+Sequencing errors are confounding factors for detection of low-frequency genetic variants for cancer diagnosis using deep next-generation sequencing. Targeted deep sequencing is usually done by amplicon protocol or hybridization-capture protocol that are also potential sources of errors. The current case study excluded non-sequencer related errors by evaluating the perfomance of two sequencers on the same sample prepared with the same laboratory protocols.
