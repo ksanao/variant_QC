@@ -34,3 +34,11 @@ def read_vcf_meta(vcf_file):
     
     return dict_info, dict(vcf_reader.filters)
 
+
+def extract_attr(var_dict, info_dict, attr, colname, sample):
+    vcf_dict = var_dict[sample]
+    vcf_info = info_dict[sample]
+    df = pd.DataFrame({colname:[vcf_dict[r].INFO[attr][0] for r in vcf_dict.keys()]})
+    df['Sample'] = sample
+    return df
+

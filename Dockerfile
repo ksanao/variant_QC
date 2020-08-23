@@ -43,7 +43,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
 
 RUN conda install -y python=3.6 varscan=2.4.4 gatk4 samtools=1.7 \
-    matplotlib=3.3.1 pyvcf=0.6.8 seaborn=0.10.1 pysam=0.15.3 \
+    matplotlib=3.3.1 matplotlib-venn=0.11.5 pyvcf=0.6.8 seaborn=0.10.1 pysam=0.15.3 \
     pandas=1.1.0 bcftools=1.9 samplot=1.0.17 bedtools=2.29.2 pybedtools=0.8.1 jupyterlab=2.2.5 \
     picard igv-reports r-base bed_annotation tabix && \
     conda clean -y --all
