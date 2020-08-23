@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y locales && \
 
 # Install miniconda3 at /opt/conda
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends curl bzip2 ca-certificates \
+    && apt-get -y install --no-install-recommends curl bzip2 ca-certificates bsdmainutils \
     && curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
     && bash /tmp/miniconda.sh -bfp /opt/conda \
     && rm -rf /tmp/miniconda.sh \
@@ -33,7 +33,8 @@ ENV LANG="en_US.UTF-8" LANGUAGE="en_US:en" LC_ALL="en_US.UTF-8" \
     SHELL="/bin/bash"
 
 RUN conda config --add channels conda-forge \
-    && conda config --add channels bioconda
+    && conda config --add channels bioconda \
+    && conda config --add channels vladsaveliev
 
 ## Install git
 RUN apt-get update \
@@ -41,7 +42,10 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
 
-RUN conda install -y python=3.6 pindel varscan gatk4 samtools snakemake pandas bcftools jupyterlab && \
+RUN conda install -y python=3.6 varscan=2.4.4 gatk4 samtools=1.7 \
+    matplotlib=3.3.1 pyvcf=0.6.8 seaborn=0.10.1 pysam=0.15.3 \
+    pandas=1.1.0 bcftools=1.9 samplot=1.0.17 bedtools=2.29.2 pybedtools=0.8.1 jupyterlab=2.2.5 \
+    picard igv-reports r-base bed_annotation tabix && \
     conda clean -y --all
 
 USER root
@@ -50,11 +54,8 @@ WORKDIR /home/
 ADD ./docker-entrypoint.sh /home/
 ADD ./.bashrc /home/
 
-#RUN source /home/.bashrc
-#RUN jupyter lab --allow-root --no-browser --ip 0.0.0.0 --port 8888 &
+RUN source /home/.bashrc
 RUN chmod +x ./docker-entrypoint.sh
-#CMD ./docker-entrypoint.sh
-#ENTRYPOINT ["/bin/bash"]
 ENTRYPOINT ["/home/docker-entrypoint.sh"]
 #RUN git clone https://github.com/ksanao/variant_QC
 
