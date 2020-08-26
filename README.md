@@ -12,7 +12,7 @@ Alternatively, Jupyter  notebooks can be rerun on pre-computed files (if all ste
 Clone the repository and run the command below. The repository directory will be mounted in Docker container (do not change to this directory).
 `variant_QC/start_docker.sh run`  
 
-Jupyter lab will be available at http://127.0.0.1:8888/lab (provde the token printed out in the container)  
+Jupyter lab will be available at http://127.0.0.1:8888/lab (provde the token printed out in the container).   
 To print again running labs and tokens run the following command inside container:  
 `jupyter notebook list`  
 
@@ -26,7 +26,7 @@ File notebooks/01_compare_sequencers.ipynb
 
 ### Step 4 - Run variant calling pipeline
 Inside container run the following commands  
-`compare.sh src/config ` 
+`src/pipeline/call_variants.sh src/config SG001_1.bam`
 
 ### Step 5 - Examine the results of Step 4 in Jupyter notebook
 File notebooks/02_variant_calls.ipynb
