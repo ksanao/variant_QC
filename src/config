@@ -2,10 +2,23 @@
 # Date: 2020.08.22
 # Config file
 
+# paths data
 rawdir=/home/data/raw
 intdir=/home/data/interim
 prodir=/home/data/processed
 
+# gatk recalibration
+vqsr="$intdir"/gatk_vqsr
+bqsr="$intdir"/gatk_bqsr
+
+# paths tools
+interim_gatk=$intdir/gatk
+
+# paths stats
+stats_gatk=$prodir/gatk
+stats_picard=$prodir/picard
+
+# Samples and reference
 pref_sample="SG001"
 
 sample_bam=("SG001_1.bam" "SG001_2.bam")
@@ -23,6 +36,9 @@ ref_dna_link="ftp://ftp.ensembl.org/pub/grch37/current/fasta/homo_sapiens/dna"
 ref_gff="Homo_sapiens.GRCh37.87.chr.gff3.gz"
 ref_gff_link="ftp://ftp.ensembl.org/pub/grch37/current/gff3/homo_sapiens"
 
-
-
+# Benchmark (or "High-confidence") variant calls from NIST (Genome in a Bottle) https://www.nist.gov/programs-projects/genome-bottle
+ref_highconf="HG001_GRCh37_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz"
+ref_highconf_path="ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/NA12878_HG001/latest/GRCh37"
+ref_clinvar="clinvar.vcf.gz"
+ref_clinvar_path="https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37"
 
