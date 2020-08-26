@@ -20,6 +20,7 @@ To print again running labs and tokens run the following command inside containe
 
 ### Step 2 - Run the pipeline comparing sequencers
 Inside container run the following commands  
+   
 `source .bashrc`  
 `compare.sh src/config`  
 
