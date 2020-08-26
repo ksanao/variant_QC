@@ -18,6 +18,11 @@ fi
 
 source "$config"
 
+export "PATH=/home/src/utils:$PATH"
+
+# fetch genome sequence
+fetch_ref.sh "$config"
+
 # create interim unzipped file extracts
 for onefile in ${sample_vcf[@]} $ref_vcf $ref_bed $regions_bed $targets_bed
 do
@@ -39,34 +44,12 @@ do
 done
 popd
 
-# subset target regions from bed files
-statfile="$prodir"/target_variant.stats
-printf "File\tOn_target\tOff_target\n" > $statfile
- 
-for onefile in ${sample_vcf[@]} $ref_vcf
-do
-    outfile="$intdir"/${onefile/.vcf.gz/_target.vcf}
-    printf "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tFAKESAMPLE\n" > $outfile
-    bedtools intersect -wa -a "$intdir"/${onefile/.gz/} -b "$intdir"/${targets_bed/.gz/} >> $outfile
-    on_target=`awk 'FNR>1' $outfile | wc -l`
-    off_target=`bedtools intersect -v -a "$intdir"/${onefile/.gz/} -b "$intdir"/${targets_bed/.gz/} | wc -l`
-    printf "$onefile\t$on_target\t$off_target\n" >> $statfile
-done
-
-# subset reference regions from bed files
-statfile=$prodir/reference_variant.stats
-printf "File\tOn_ref\tOff_ref\n" > $statfile
-
+# subset vcf files
 i=0
 for onefile in ${sample_vcf[@]} $ref_vcf
 do
     ((i++))
-    outfile="$intdir"/${onefile/.vcf.gz/_onref.vcf}
-    printf "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tFAKESAMPLE\n" > $outfile
-    bedtools intersect -wa -a "$intdir"/${onefile/.gz/} -b "$intdir"/${ref_bed/.gz/} >> $outfile
-    on_target=`awk 'FNR>1' $outfile | wc -l`
-    off_target=`bedtools intersect -v -a "$intdir"/${onefile/.gz/} -b "$intdir"/${ref_bed/.gz/} | wc -l`
-    printf "$onefile\t$on_target\t$off_target\n" >> $statfile
+    subset_vcf.sh $config "$intdir"/${onefile/.gz/}
 done
 
 statfile=$prodir/common_variants.stats
@@ -93,31 +76,12 @@ do
     samtools index $rawdir/$onefile
 done
 
-# fetch genome sequence
-pushd $intdir
-printf > ref.fasta
-for onefile in ${ref_fasta[@]}
-do
-    wget "$ref_dna_link"/"$onefile"
-    gunzip "$onefile"
-    cat ${onefile/.gz/} >> ref.fasta
-done
-samtools faidx ref.fasta
-bedtools getfasta -fi ref.fasta -bed regions.bed > regions.fasta
-samtools faidx regions.fasta 
-
-wget "$ref_gff_link"/"$ref_gff"
-sortedgff="${ref_gff/gff3.gz/sorted.gff3.gz}"
-bedtools sort -i "$ref_gff" | bgzip -c > "$sortedgff"
-tabix "$sortedgff"
-
-popd
-
 # visualise coverage from bam files
 bash /home/src/utils/regions_samplot.sh $config
 
 # visualise in IGV
 in_bam=`for onefile in ${sample_bam[@]}; do echo "$rawdir"/"$onefile"; done`
+sortedgff="${ref_gff/gff3.gz/sorted.gff3.gz}"
 create_report "$intdir"/${targets_bed/.gz/} "$intdir"/ref.fasta --tracks `echo ${in_bam[@]}` "$rawdir"/"$ref_vcf" "$intdir"/"$sortedgff" --output "$prodir"/igv_viewer.html
 
 # bam stats

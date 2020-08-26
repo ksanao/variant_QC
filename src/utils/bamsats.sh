@@ -9,8 +9,8 @@ ERROR_ARGUMENTS=65
 USAGE="\nUsage: \n\
 `basename $0` config (with path)\n"
 
-# Print usage: scriptname -options, if script invoked with no command-line args
-if [ $# -eq 0 ]
+# Print usage: scriptname -options, if script invoked with incorrect command-line args
+if [ $# -ne 1 ]
 then
         echo -e $USAGE
         exit $ERROR_ARGUMENTS

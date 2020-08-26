@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import vcf
 import pandas as pd
 import os
@@ -35,10 +38,17 @@ def read_vcf_meta(vcf_file):
     return dict_info, dict(vcf_reader.filters)
 
 
-def extract_attr(var_dict, info_dict, attr, colname, sample):
-    vcf_dict = var_dict[sample]
-    vcf_info = info_dict[sample]
-    df = pd.DataFrame({colname:[vcf_dict[r].INFO[attr][0] for r in vcf_dict.keys()]})
-    df['Sample'] = sample
+def extract_attr(vcf_dict, vcf_info, attr, colname, sample=None, as_list = False):
+    if type(sample) != type(None):
+        vcf_dict = vcf_dict[sample]
+        vcf_info = vcf_info[sample]
+    
+    if as_list:
+        df = pd.DataFrame({colname:[vcf_dict[r].INFO[attr][0] for r in vcf_dict.keys()]})
+    else:
+        df = pd.DataFrame({colname:[vcf_dict[r].INFO[attr] for r in vcf_dict.keys() if attr in vcf_dict[r].INFO]})
+    if type(sample) != type(None):
+        df['Sample'] = sample
+    
     return df
 
