@@ -33,26 +33,27 @@ def truncate_colormap(cmap, minval=0.0, maxval=1.0, n=100):
     return new_cmap
 
 
-def plot_var_venn(filename, var_stat, common_stat, compare_to='Target'):
+def plot_var_venn(sample_vcf, ref_vcf, var_stat, common_stat, compare_to='Target'):
     '''
     Plot venn diagram for sam ple vs reference
-    :param filename: vcf filename for sample
+    :param sample: vcf filename for sample
+    :param ref: vcf filename for reference
     :param compare_to: str to define if compare within Target or Reference regions
     '''
     if compare_to == 'Target':
         label = 'On_target'
     else:
         label = 'On_ref'
-    
+
     cmap = plt.get_cmap('Blues')
     cmap_tr = truncate_colormap(cmap, 0.3, 1)
 
-    ref_tot = var_stat.loc[var_stat.File.isin(['SG001_ref.vcf.gz']), label].tolist()[0]
-    sample_tot = var_stat.loc[var_stat.File.isin([filename]), label].tolist()[0]
-    common = common_stat.loc[common_stat.Region.isin([compare_to]) & common_stat.Files.isin([filename]), 'Common_variants'].tolist()[0]
+    ref_tot = var_stat.loc[var_stat.File.isin([ref_vcf]), label].tolist()[0]
+    sample_tot = var_stat.loc[var_stat.File.isin([sample_vcf]), label].tolist()[0]
+    common = common_stat.loc[common_stat.Region.isin([compare_to]) & common_stat.Files.isin([sample_vcf]), 'Common_variants'].tolist()[0]
     subsets = (sample_tot-common, ref_tot-common, common)
 
-    venn2(subsets=subsets, set_labels = (config.PRETTY_NAMES[filename], 'Reference'), set_colors = (cmap_tr(10), cmap_tr(30), cmap_tr(50)), alpha=0.75)
+    venn2(subsets=subsets, set_labels = (config.PRETTY_NAMES[sample_vcf], 'Reference'), set_colors = (cmap_tr(10), cmap_tr(30), cmap_tr(50)), alpha=0.75)
     venn2_circles(subsets=subsets, color='black', alpha=0.7, linewidth=0.4)
     plt.title(f"{compare_to} regions")
     plt.show()
