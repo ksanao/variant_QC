@@ -1,0 +1,7 @@
+Region	Common_variants	Files
+Target	13	3
+Reference	34	3
+Target	13	SG001_1_GT.vcf.gz
+Reference	35	SG001_1_GT.vcf.gz
+Target	13	SG001_2_GT.vcf.gz
+Reference	52	SG001_2_GT.vcf.gz

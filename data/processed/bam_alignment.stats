@@ -1,0 +1,9 @@
+File	Region	Aligned	Notaligned
+SG001_1.bam	No_region		453
+SG001_1.bam	13	20632	30
+SG001_1.bam	17	18896	24
+SG001_1.bam	19	1837	2
+SG001_2.bam	No_region		56593
+SG001_2.bam	13	55880	0
+SG001_2.bam	17	49762	0
+SG001_2.bam	19	2328	0
