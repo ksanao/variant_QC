@@ -12,3 +12,6 @@ fi
 # customise bash prompt
 export PS1='\e[0;33m\]\u\e[36m\]@\e[36m\]\h:\e[1;32m\]\w\e[0;32m\][$(git branch 2>/dev/null | grep "^*" | colrm 1 2)]$ '
 
+# customise path
+export "PATH=/home/src/pipeline:$PATH"
+
