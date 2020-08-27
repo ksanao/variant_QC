@@ -22,7 +22,6 @@ cd ..
 To run docker image and start the container run the command below. The repository directory will be mounted in Docker container.  
 
 ```bash
-source .bashrc  
 variant_QC/start_docker.sh run  
 ```
 
@@ -45,6 +44,7 @@ File notebooks/01_compare_sequencers.ipynb
 Inside container run the following commands  
 
 ```bash
+source .bashrc  
 src/pipeline/call_variants.sh src/config SG001_1.bam
 ```
 
