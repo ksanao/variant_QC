@@ -29,7 +29,7 @@ for onefile in ${sample_vcf[@]} $ref_vcf ${gatk_vcf[@]}
 do  
     in_target=${onefile/.gz/}
     in_target="$intdir"/${in_target/.vcf/_target.vcf}
-    echo $in_target
+    
     if [ -f "$in_target" ]
     then
         on_target=`awk 'FNR>1' "$in_target" | wc -l`
@@ -79,7 +79,7 @@ do
     then
        onref=`cat $infile $in_onref_ref | cut -f1,2,4,5 \
              | sort | uniq -c | awk '$1==2' | grep -v '#CHROM' | wc -l`
-       printf "Target\t$ontarget\t$onefile, reference\n" >> $statfile
+       printf "Reference\t$onref\t$onefile, reference\n" >> $statfile
     fi
 
     infile=$intdir/${onefile/.vcf.gz/_target.vcf}
@@ -88,7 +88,7 @@ do
         ontarget=`cat $infile $in_target_ref | cut -f1,2,4,5 \
            | sort | uniq -c | awk '$1==2' | grep -v '#CHROM' | wc -l`
 
-        printf "Reference\t$onref\t$onefile, reference\n" >> $statfile
+        printf "Target\t$ontarget\t$onefile, reference\n" >> $statfile
     fi
 done
 
