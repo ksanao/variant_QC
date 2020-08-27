@@ -16,6 +16,7 @@ DATA_INTERIM_PATH = os.path.join(DATA_PATH, "interim")
 DATA_PROCESSED_PATH = os.path.join(DATA_PATH, "processed")
 
 # STAT and METRICS FILES
+BM_STAT = "target_benchmark.stats"
 SAM_STAT = "samtools.stats"
 BAM_ALN = "bam_alignment.stats"
 BAM_MET = "bam_metric.stats"

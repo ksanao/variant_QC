@@ -24,11 +24,14 @@ export "PATH=/home/src/utils:$PATH"
 fetch_ref.sh "$config"
 
 # create interim unzipped file extracts
-for onefile in ${sample_vcf[@]} $ref_vcf $ref_bed $regions_bed $targets_bed
+for onefile in ${sample_vcf[@]} $ref_vcf $ref_bed $regions_bed $targets_bed_all
 do
     outfile=${onefile/.gz/}
     gunzip -c "$rawdir"/"$onefile" > "$intdir"/"$outfile"
 done
+
+# validate golden reference
+validate_reference.sh "$config"
 
 # annotate regions and targets bed files
 for onefile in $regions_bed $targets_bed
@@ -45,30 +48,14 @@ done
 popd
 
 # subset vcf files
-i=0
 for onefile in ${sample_vcf[@]} $ref_vcf
 do
-    ((i++))
     subset_vcf.sh $config "$intdir"/${onefile/.gz/}
 done
 
-statfile=$prodir/common_variants.stats
-ontarget=`cut -f1,2,4,5 $intdir/*_target.vcf | sort | uniq -c | awk -v N=$i '$1==N' | grep -v '#CHROM' | wc -l`
-onref=`cut -f1,2,4,5 $intdir/*_onref.vcf | sort | uniq -c | awk -v N=$i '$1==N' | grep -v '#CHROM' | wc -l`
-printf "Region\tCommon_variants\tFiles\n" > $statfile
-printf "Target\t$ontarget\t$i\n" >> $statfile
-printf "Reference\t$onref\t$i\n" >> $statfile
 
-for onefile in ${sample_vcf[@]}
-do
-    onref=`cat $intdir/${onefile/.vcf.gz/_onref.vcf} $intdir/${ref_vcf/.vcf.gz/_onref.vcf} | cut -f1,2,4,5 \
-           | sort | uniq -c | awk '$1==2' | grep -v '#CHROM' | wc -l`
-    ontarget=`cat $intdir/${onefile/.vcf.gz/_target.vcf} $intdir/${ref_vcf/.vcf.gz/_target.vcf} | cut -f1,2,4,5 \
-           | sort | uniq -c | awk '$1==2' | grep -v '#CHROM' | wc -l`
-
-    printf "Target\t$ontarget\t$onefile\n" >> $statfile
-    printf "Reference\t$onref\t$onefile\n" >> $statfile
-done
+# subset and compare vcfs
+compare_vcf_stats.sh $config
 
 # index bam files
 for onefile in ${sample_bam[@]}
