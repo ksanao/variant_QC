@@ -22,6 +22,7 @@ cd ..
 To run docker image and start the container run the command below. The repository directory will be mounted in Docker container.  
 
 ```bash
+source .bashrc  
 variant_QC/start_docker.sh run  
 ```
 
