@@ -36,7 +36,6 @@ Inside container run the following commands
 source .bashrc   
 compare.sh src/config
 ```
-compare.sh src/config  
 
 ### Step 4 - Examine the results of Step 2 in Jupyter notebook
 File notebooks/01_compare_sequencers.ipynb
