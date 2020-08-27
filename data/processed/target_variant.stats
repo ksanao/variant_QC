@@ -2,4 +2,3 @@ File	On_target	Off_target
 SG001_1_GT.vcf.gz	13	30
 SG001_2_GT.vcf.gz	36	93
 SG001_ref.vcf.gz	13	231
-SG001_1_gatk.vcf	13	41

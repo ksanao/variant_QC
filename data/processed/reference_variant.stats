@@ -2,4 +2,3 @@ File	On_ref	Off_ref
 SG001_1_GT.vcf.gz	36	7
 SG001_2_GT.vcf.gz	106	23
 SG001_ref.vcf.gz	244	0
-SG001_1_gatk.vcf	46	8
