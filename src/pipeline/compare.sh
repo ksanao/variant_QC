@@ -69,7 +69,7 @@ bash /home/src/utils/regions_samplot.sh $config
 # visualise in IGV
 in_bam=`for onefile in ${sample_bam[@]}; do echo "$rawdir"/"$onefile"; done`
 sortedgff="${ref_gff/gff3.gz/sorted.gff3.gz}"
-create_report "$intdir"/${targets_bed/.gz/} "$intdir"/ref.fasta --tracks `echo ${in_bam[@]}` "$rawdir"/"$ref_vcf" "$intdir"/"$sortedgff" --output "$prodir"/igv_viewer.html
+create_report "$intdir"/${targets_bed_all/.gz/} "$intdir"/ref.fasta --tracks `echo ${in_bam[@]}` "$rawdir"/"$ref_vcf" "$intdir"/"$sortedgff" --output "$prodir"/igv_viewer.html
 
 # bam stats
 bash /home/src/utils/bamsats.sh $config

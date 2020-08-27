@@ -22,7 +22,7 @@ in_bam=`for onefile in ${sample_bam[@]}; do echo "$rawdir"/"$onefile"; done`
 in_pref=`for onefile in ${sample_bam[@]}; do echo "${onefile/.bam/}"; done`
 sorted_gff="$intdir"/"${ref_gff/gff3.gz/sorted.gff3.gz}"
 ref_fasta="$intdir"/"$ref.fasta"
-regions="$intdir"/${targets_bed/.gz/}
+regions="$intdir"/${targets_bed_all/.gz/}
 
 mkdir -p "$prodir"/samplots
 for i in $(seq 1 `cat $regions | wc -l`)

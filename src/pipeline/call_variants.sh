@@ -32,7 +32,7 @@ gatk4_4_filter.sh "$config" "$bamfile"
 
 # visualise in IGV
 sortedgff="${ref_gff/gff3.gz/sorted.gff3.gz}"
-create_report "$intdir"/${targets_bed/.gz/} "$intdir"/ref.fasta --tracks "$intdir"/"$sample_ref"_bqsr.bam "$rawdir"/"$ref_vcf" "$intdir"/"$sortedgff" --output "$prodir"/igv_viewer_gatk.html
+create_report "$intdir"/${targets_bed_all/.gz/} "$intdir"/ref.fasta --tracks "$intdir"/"$sample_ref"_bqsr.bam "$rawdir"/"$ref_vcf" "$intdir"/"$sortedgff" --output "$prodir"/igv_viewer_gatk.html
 
 # get vcf stats
 compare_vcf_stats.sh $config
