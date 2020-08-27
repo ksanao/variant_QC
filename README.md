@@ -3,6 +3,8 @@ Sequencing errors are important confounding factors for detection of genetic var
 
 ## Visualising the results
 The results are visualised in Jupyter notebooks and single html page IGV viewers generated as part of the pipeline.
+* Jupyter notebooks can be visualised on Github or locally
+* IGV html can only be visualised locally (downloading just the html file will also work)
 
 ## Reproducing the results
 To reproduce full results run the steps listed below.
