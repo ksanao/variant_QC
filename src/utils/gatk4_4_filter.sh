@@ -25,7 +25,7 @@ export "PATH=/home/src/utils:$PATH"
 bamfile=${bamfile##*/}
 sample_ref=${bamfile/.bam/}
 gatk_vcf="$interim_gatk"/"$sample_ref"_gatk.vcf.gz
-gatk_snp_vcf="$interim_gatk"/"$sample_ref"_gatk_snp.vcf.gz
+gatk_snp_vcf="$interim_gatk"/"$sample_ref"_gatk_snp.vcf
 gatk_filt_vcf="$intdir"/"$sample_ref"_gatk_filt.vcf
 gatk_final_vcf="$intdir"/"$sample_ref"_gatk.vcf
 
@@ -39,18 +39,20 @@ gatk VariantFiltration \
         -R "$intdir"/ref.fasta \
         -V $gatk_snp_vcf \
         -O $gatk_filt_vcf \
-        -filter-name "QD_filter" -filter "QD < 5.0" \
-        -filter-name "FS_filter" -filter "FS > 6.0" \
+        -filter-name "QD_filter" -filter "QD < 2.0" \
+        -filter-name "FS_filter" -filter "FS > 8.0" \
         -filter-name "MQ_filter" -filter "MQ < 40.0" \
         -filter-name "SOR_filter" -filter "SOR > 3.0" \
-        -filter-name "MQRankSum_filter" -filter "MQRankSum < -0.25" \
-        -filter-name "ReadPosRankSum_filter_low" -filter "ReadPosRankSum < -6.0"
+        -filter-name "MQRankSum_filter" -filter "MQRankSum < -1.0" \
+        -filter-name "ReadPosRankSum_filter_low" -filter "ReadPosRankSum < -8.0"
 
 gatk SelectVariants \
         -R "$intdir"/ref.fasta \
         -V "$gatk_filt_vcf" \
         --exclude-filtered \
         -O $gatk_final_vcf
+
+cp $gatk_final_vcf "$prodir"/"$sample_ref"_gatk.vcf
 
 subset_vcf.sh $config $gatk_final_vcf
 

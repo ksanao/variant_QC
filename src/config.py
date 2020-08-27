@@ -32,7 +32,8 @@ PRETTY_NAMES = {'SG001_1_GT.vcf.gz':'SG001_1',
                 'SG001_1_GT_target.vcf':'SG001_1',
                 'SG001_2_GT.vcf.gz':'SG001_2',
                 'SG001_2_GT_target.vcf':'SG001_2',
-                'SG001_ref_target.vcf': 'Reference'}
+                'SG001_ref_target.vcf':'Reference',
+                'SG001_1_gatk.vcf':'SG001_1 GATK'}
 
 SNS_BARPLOT_STYLE = {'axes.facecolor': 'white',
                      'axes.edgecolor': '.8',

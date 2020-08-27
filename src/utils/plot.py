@@ -53,7 +53,7 @@ def plot_var_venn(sample_vcf, ref_vcf, var_stat, common_stat, compare_to='Target
 
     ref_tot = var_stat.loc[var_stat.File.isin([ref_vcf]), label].tolist()[0]
     sample_tot = var_stat.loc[var_stat.File.isin([sample_vcf]), label].tolist()[0]
-    common = common_stat.loc[common_stat.Region.isin([compare_to]) & common_stat.Files.isin([sample_vcf]), 'Common_variants'].tolist()[0]
+    common = common_stat.loc[common_stat.Region.isin([compare_to]) & common_stat.Files.isin([f"{sample_vcf}, reference"]), 'Common_variants'].tolist()[0]
     subsets = (sample_tot-common, ref_tot-common, common)
 
     venn2(subsets=subsets, set_labels = (config.PRETTY_NAMES[sample_vcf], 'Reference'), set_colors = (cmap_tr(10), cmap_tr(30), cmap_tr(50)), alpha=0.75)

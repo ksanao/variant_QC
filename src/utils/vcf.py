@@ -3,6 +3,7 @@
 
 import vcf
 import pandas as pd
+import numpy as np
 import os
 
 def read_vcf_data(vcf_file):
@@ -52,3 +53,27 @@ def extract_attr(vcf_dict, vcf_info, attr, colname, sample=None, as_list = False
     
     return df
 
+
+def accuracy_metrics(sample_vcf, ref_vcf, var_stat, common_stat, compare_to='Target'):
+    '''
+    Get accuracy metrics for calls
+    :param sample: vcf filename for sample
+    :param ref: vcf filename for reference
+    :param compare_to: str to define if compare within Target or Reference regions
+    '''
+    if compare_to == 'Target':
+        label = 'On_target'
+    else:
+        label = 'On_ref'
+
+    ref_tot = var_stat.loc[var_stat.File.isin([ref_vcf]), label].tolist()[0]
+    sample_tot = var_stat.loc[var_stat.File.isin([sample_vcf]), label].tolist()[0]
+    TP = common_stat.loc[common_stat.Region.isin([compare_to]) & common_stat.Files.isin([f"{sample_vcf}, reference"]), 'Common_variants'].tolist()[0]
+    FP = sample_tot-TP
+    FN = ref_tot-TP
+    
+    precision=np.around((TP/(TP+FP))*100, 2)
+    sensitivity=np.around((TP/(TP+FN))*100, 2)
+    f1=2*((sensitivity*precision)/(sensitivity+precision))
+    
+    return precision, sensitivity, np.around(f1, 2)
