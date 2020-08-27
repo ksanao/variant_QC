@@ -45,7 +45,7 @@ RUN apt-get update \
 RUN conda install -y python=3.6 varscan=2.4.4 gatk4=4.1.8.1 samtools=1.7 \
     matplotlib=3.3.1 pyvcf=0.6.8 seaborn=0.10.1 pysam=0.15.3 \
     pandas=1.1.0 bcftools=1.9 samplot=1.0.17 bedtools=2.29.2 pybedtools=0.8.1 jupyterlab=2.2.5 \
-    picard=2.21.2 igv-reports=1.0.1 r-base=4.0.2 bed_annotation=1.1.2 tabix=0.2.6 && \
+    picard=2.23.3 igv-reports=1.0.1 r-base=4.0.2 bed_annotation=1.1.2 tabix=0.2.6 && \
     conda clean -y --all
 
 RUN conda install -c conda-forge matplotlib-venn=0.11.5 && \
