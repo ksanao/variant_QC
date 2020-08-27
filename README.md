@@ -8,6 +8,15 @@ The results are visualised in Jupyter notevooks and single html page IGV viewers
 To reproduce full results run the steps listed below.
 Alternatively, Jupyter  notebooks can be rerun on pre-computed files (if all steps were run).
 
+### Step 1 - Build docker image
+Clone the repository and build docker image.  
+
+```bash
+cd variant_QC  
+docker build -t variant_qc .  
+cd ..  
+```
+
 ### Step 1 - Start docker container and Jupyter Lab
 Clone the repository and run the command below. The repository directory will be mounted in Docker container (do not change to this directory).  
   
