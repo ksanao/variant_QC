@@ -19,6 +19,8 @@ fi
 
 source "$config"
 
+echo "Fetching reference sequences and annotations"
+
 # fetch genome sequence
 pushd $intdir
 
