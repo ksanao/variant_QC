@@ -45,7 +45,7 @@ Inside container run the following commands
 
 ```bash
 source .bashrc  
-src/pipeline/call_variants.sh src/config SG001_1.bam
+call_variants.sh src/config SG001_1.bam
 ```
 
 ### Step 6 - Examine the results of Step 4 in Jupyter notebook
