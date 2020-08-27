@@ -37,7 +37,7 @@ source .bashrc
 compare.sh src/config
 ```
 
-### Step 4 - Examine the results of Step 2 in Jupyter notebook
+### Step 4 - Examine the results of Step 3 in Jupyter notebook
 File notebooks/01_compare_sequencers.ipynb
 
 ### Step 5 - Run variant calling pipeline
@@ -48,5 +48,5 @@ source .bashrc
 call_variants.sh src/config SG001_1.bam
 ```
 
-### Step 6 - Examine the results of Step 4 in Jupyter notebook
+### Step 6 - Examine the results of Step 5 in Jupyter notebook
 File notebooks/02_variant_calls.ipynb
