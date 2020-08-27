@@ -2,7 +2,7 @@
 Sequencing errors are confounding factors for detection of low-frequency genetic variants for cancer diagnosis using deep next-generation sequencing. Targeted deep sequencing is usually done by amplicon protocol or hybridization-capture protocol that are also potential sources of errors. The current case study excluded non-sequencer related errors by evaluating the perfomance of two sequencers on the same sample prepared with the same laboratory protocols.
 
 ## Visualising the results
-The results are visualised in Jupyter notevooks and single html page IGV viewers generated as part of the pipeline.
+The results are visualised in Jupyter notebooks and single html page IGV viewers generated as part of the pipeline.
 
 ## Reproducing the results
 To reproduce full results run the steps listed below.
