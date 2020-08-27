@@ -1,5 +1,5 @@
 # variant_QC
-Sequencing errors are important confounding factors for detection of genetic variants in clinical settings (diagnostic classification, prognosic insights) based on deep next-generation sequencing. Targeted deep sequencing is usually done by amplicon or hybridization-capture protocol that are also potential sources of errors. The current case study excluded non-sequencer related errors by evaluating the perfomance of two sequencers on the same sample prepared with the same laboratory protocols.
+Sequencing errors are important confounding factors for detection of genetic variants in clinical settings (e.g for diagnostic classification or prognosic insights) based on deep next-generation sequencing. Targeted deep sequencing is usually done by amplicon or hybridization-capture protocol that are also potential sources of errors. The current case study excluded non-sequencer related errors by evaluating the perfomance of two sequencers on the same sample prepared with the same laboratory protocols.
 
 ## Visualising the results
 The results are visualised in Jupyter notebooks and single html page IGV viewers generated as part of the pipeline.
