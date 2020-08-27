@@ -33,12 +33,7 @@ then
         rm ${onefile/.gz/}
     done
     samtools faidx ref.fasta
-fi
-
-if [ ! -f ref.fasta ]
-then
-    bedtools getfasta -fi ref.fasta -bed regions.bed > regions.fasta
-    samtools faidx regions.fasta
+    picard CreateSequenceDictionary -R ref.fasta -O ref.dict
 fi
 
 # fetch annotations
